@@ -15,8 +15,8 @@ function reverseDA() {
     const inputEl = document.querySelector("#daResult"); 
     const input = inputEl.value || DA_PLACEHOLDER;
 
-    const indentSize = parseInt(document.querySelector("#indentSize").value) || 2;
-    const indent = Array(indentSize).fill('\xa0').join('');
+    const indentSize = parseInt(document.querySelector("#indentSize").value);
+    const indent = Array(isNaN(indentSize) ? 2 : indentSize).fill('\xa0').join('');
 
     const map = {
         "┌─── *": "---*",
