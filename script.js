@@ -1,6 +1,6 @@
 const DA_PLACEHOLDER = ` // Entre le résultat d'un DA pour en obtenir sa source\no────────────────o ↓ nbMagique\n│ monSuperModule │\no────────────────o ↓ sortie\n┌─── *\n│┌── if (nbMagique == 1337 OR nbMagique == 420)\n││ sortie = "haha funny number"\n│├── else\n││ sortie = "Ce nombre est parfaitement inintéressant, Watson."\n│└──\n└──────────`;
 
-const BAR_REGEX = / ?o─+o(?: ↓ (.+))?/;
+const BAR_REGEX = / ?[oO0]─+[oO0](?: ↓ (.+))?/;
 const NAME_REGEX = / ?│ ([^│].+) │/;
 
 // Autre regex qui match un module entier sur plusieurs lignes,
