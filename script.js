@@ -49,42 +49,64 @@ function reverseDA() {
     const lines = input.split("\n"); 
     const reversedLines = [];
 
-    for (let i = 0; i < lines.length; i++) {
-        // Première ligne d'un module
-        if (module.startLine == -1) {
-            module.input = lines[i].match(BAR_REGEX);
-            
-            if (module.input) {
-                module.startLine = i;
+    try {
+        for (let i = 0; i < lines.length; i++) {
+            // Première ligne d'un module
+            if (module.startLine == -1) {
+                module.input = lines[i].match(BAR_REGEX);
+                
+                if (module.input) {
+                    module.startLine = i;
+                }
             }
-        }
-        // deuxième
-        else if (i == module.startLine + 1) {
-            module.name = lines[i].match(NAME_REGEX);
-        }
-        // dernière
-        else {
-            module.output = lines[i].match(BAR_REGEX);
+            // deuxième
+            else if (i == module.startLine + 1) {
+                module.name = lines[i].match(NAME_REGEX);
+            }
+            // dernière
+            else {
+                module.output = lines[i].match(BAR_REGEX);
 
-            lines[i] = lines[i].replace(
-                BAR_REGEX, 
-                `module(${module.name[1] || ""};${module.input[1] || ""};${module.output[1] || ""})`
-            );
+                lines[i] = lines[i].replace(
+                    BAR_REGEX, 
+                    `module(${module.name[1] || ""};${module.input[1] || ""};${module.output[1] || ""})`
+                );
 
-            module.startLine = -1;
-            module.input = null;
-            module.name = null;
-            module.output = null;
-        }
-
-        if (module.startLine == -1) {
-            for (let key of Object.keys(map)) {
-                lines[i] = lines[i].replaceAll(key, map[key]);
+                module.startLine = -1;
+                module.input = null;
+                module.name = null;
+                module.output = null;
             }
 
-            reversedLines.push(lines[i]);
+            if (module.startLine == -1) {
+                for (let key of Object.keys(map)) {
+                    lines[i] = lines[i].replaceAll(key, map[key]);
+                }
+
+                reversedLines.push(lines[i]);
+            }
         }
+
+        inputEl.value = reversedLines.join("\n");
+    } catch(_e) {
+        addError("Impossible de traduire le DA. Les caractères spéciaux sont-ils corrects ?");
     }
+}
 
-    inputEl.value = reversedLines.join("\n");
+function addError(text) {
+    const container = document.querySelector("#errorContainer");
+    const newError = document.createElement("div");
+
+    newError.classList.add("error");
+    newError.classList.add("fadeIn");
+    newError.innerText = text;
+    container.appendChild(newError);
+
+    setTimeout(() => {
+        newError.classList.add("fadeOut");
+        
+        setTimeout(() => {
+            newError.remove();
+        }, 500);
+    }, 5000);
 }

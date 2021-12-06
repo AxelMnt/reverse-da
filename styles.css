@@ -109,3 +109,56 @@ body {
 
     color: rgb(80, 80, 80);
 }
+
+#errorContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+    row-gap: 1em;
+    margin-bottom: -1em;
+
+    color: white;
+    text-align: left;
+}
+
+.error:last-child {
+    margin-bottom: 1em;
+}
+
+.error {
+    --padding: 1em;
+    padding: var(--padding);
+    padding-top: calc(var(--padding) / 2);
+    padding-bottom: calc(var(--padding) / 2);
+
+    background-color: rgb(255, 81, 81);
+    border-radius: 5px;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 100%;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 100%;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.fadeIn {
+    animation: fadeIn .5s forwards;
+}
+
+.fadeOut {
+    animation: fadeOut .5s forwards;
+}
